@@ -58,7 +58,7 @@ async function processComment(el) {
   if (!el.nextSibling || !el.nextSibling.classList?.contains("toxic-label")) {
     const label = document.createElement("div");
     label.className = "toxic-label";
-    label.innerText = "⚠️ Bình luận tiêu cực (bấm để xem)";
+    label.innerText = "Bình luận tiêu cực (bấm để xem)";
     el.after(label);
 
     el.addEventListener("click", () => {

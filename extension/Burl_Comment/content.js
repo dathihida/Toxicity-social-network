@@ -1,7 +1,7 @@
-require('dotenv').config();
+// require('dotenv').config();
 
 const TOXIC_CLASS = "toxic-blur";
-const API_KEY = process.env.API_KEY_YOUTUBE;
+const API_KEY = "AIzaSyBwtaMKifElBqhBqmUlgZfliSLihqE2VWM";
 
 (function injectCSS() {
   const link = document.createElement("link");
@@ -33,20 +33,55 @@ function getVideoId() {
 
 
 // CATEGORY MAP 
-const CATEGORY_MAP = {
-  "1": "Film & Animation",
-  "2": "Autos & Vehicles",
+const CATEGORY_MAP_V = {
+  "1": "PhimAnh",
+  "2": "OtoXeMay",
   "10": "Giaitri",
-  "15": "Pets & Animals",
-  "17": "Sports",
+  "15": "DongVat",
+  "17": "TheThao",
   "20": "Gaming",
-  "22": "People & Blogs",
-  "23": "Comedy",
+  "21": "CuocSong",
+  "22": "TheGioi",
+  "23": "GiaiTri",
   "24": "GiaiTri",
   "25": "ThoiSu",
-  "26": "Howto & Style",
+  "26": "PhongCach",
   "27": "GiaoDuc",
   "28": "KhoaHoc",
+};
+
+const CATEGORY_MAP_E = {
+  "1": "Film & Animation",
+  "2": "Autos & Vehicles",
+  "10": "Music",
+  "15": "Pets & Animals",
+  "17": "Sports",
+  "18": "Short Movies",
+  "20": "Gaming",
+  "21": "Videoblogging",
+  "22": "People & Blogs",
+  "23": "Comedy",
+  "24": "Entertainment",
+  "25": "News & Politics",
+  "26": "Howto & Style",
+  "27": "Education",
+  "28": "Science & Technology",
+  "29": "Nonprofits & Activism",
+  "30": "Movies",
+  "31": "Anime/Animation",
+  "32": "Action/Adventure",
+  "33": "Classics",
+  "34": "Comedy",
+  "35": "Documentary",
+  "36": "Drama",
+  "37": "Family",
+  "38": "Foreign",
+  "39": "Horror",
+  "40": "Sci-Fi/Fantasy",
+  "41": "Thriller",
+  "42": "Shorts",
+  "43": "Shows",
+  "44": "Trailers"
 };
 
 // FETCH VIDEO META
@@ -71,20 +106,20 @@ async function fetchVideoMeta() {
 
   VIDEO_META = {
     title: snippet.title,
-    topic: CATEGORY_MAP[snippet.categoryId] || "Unknown"
+    topic: CATEGORY_MAP_E[snippet.categoryId] || "Unknown"
   };
 
   return VIDEO_META;
 }
 
 //  BLUR 
-function applyBlur(el, confidence) {
+function applyBlur(el, confidence, source) {
   el.classList.add(TOXIC_CLASS);
 
   const overlay = document.createElement("div");
   overlay.className = "toxic-overlay";
   overlay.textContent =
-    `Bình luận bị ẩn (Toxic ${(confidence * 100).toFixed(1)}%) – Nhấn để xem`;
+    `Bình luận bị ẩn (Toxic ${(confidence).toFixed(1)}%) - (${source}) – Nhấn để xem`;
 
   overlay.onclick = () => {
     el.classList.remove(TOXIC_CLASS);
@@ -109,7 +144,7 @@ async function classifyComment(text, el) {
     (res) => {
       if (!res || res.error) return;
       if (res.toxic) {
-        applyBlur(el, res.confidence || 0);
+        applyBlur(el, res.confidence || 0, res.source);
       }
     }
   );
@@ -146,7 +181,7 @@ scanComments();
 
 // LIVE CHAT
 if (location.href.includes("live_chat")) {
-  console.log("🔥 Live chat detected");
+  console.log("Live chat detected");
 
   const scannedLive = new WeakSet();
 

@@ -82,7 +82,7 @@ def main():
         if f1 > best_f1:
             best_f1 = f1
             torch.save(model.state_dict(), "toxicity_model.pt")
-            print("✅ Saved best model")
+            print("Saved best model")
 
 if __name__ == "__main__":
     main()

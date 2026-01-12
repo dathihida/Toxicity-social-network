@@ -14,7 +14,7 @@ tqdm.pandas()
 
 
 def main():
-    print("🔹 Loading data...")
+    print("Loading data...")
     df = pd.read_excel(RAW_PATH)
 
     required_cols = ["Comment", "Toxicity", "Title", "Topic"]
@@ -24,7 +24,7 @@ def main():
 
     stopwords = load_stopwords(STOPWORD_PATH)
 
-    print("🔹 Preprocessing text...")
+    print("Preprocessing text...")
     df["comment_clean"] = df["Comment"].progress_apply(
         lambda x: preprocess_text(str(x), stopwords)
     )
@@ -35,7 +35,7 @@ def main():
         lambda x: preprocess_text(str(x), stopwords)
     )
 
-    print("🔹 Build contextual input...")
+    print("Build contextual input...")
     df["text"] = (
         "[TITLE] "
         + df["title_clean"]
@@ -49,7 +49,7 @@ def main():
         columns={"Toxicity": "label"}
     )
 
-    print("🔹 Split dataset...")
+    print("Split dataset...")
     train_df, test_df = train_test_split(
         df_final, test_size=0.15, random_state=42, stratify=df_final["label"]
     )
@@ -58,12 +58,12 @@ def main():
         train_df, test_size=0.15, random_state=42, stratify=train_df["label"]
     )
 
-    print("🔹 Saving files...")
+    print("Saving files...")
     train_df.to_csv(OUT_DIR + "train.csv", index=False)
     val_df.to_csv(OUT_DIR + "val.csv", index=False)
     test_df.to_csv(OUT_DIR + "test.csv", index=False)
 
-    print("✅ DONE")
+    print("DONE")
     print("Train:", train_df.shape)
     print("Val  :", val_df.shape)
     print("Test :", test_df.shape)

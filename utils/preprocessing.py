@@ -2,15 +2,48 @@ import re
 from underthesea import word_tokenize
 
 
-SHORT_MAP = {
-    "đm": "địt mẹ",
-    "dm": "địt mẹ",
-    "vl": "vãi lồn",
-    "vcl": "vãi cả lồn",
-    "cc": "con cặc",
-    "đéo": "đéo",
-    "ko": "không",
-    "k": "không"
+SHORTCUT_MAP = {
+    'vd': 'ví dụ',
+    'cmt': 'bình luận',
+    'dc': 'được',
+    'vl': 'vãi lồn',
+    'cmm': 'cha mẹ mày',
+    'đcmm': 'địt con mẹ mày',
+    'dmm': 'địt mẹ mày',
+    'ad': 'admin',
+    'kkk': 'cười',
+    'blv': 'bình luận viên',
+    'vn': 'Việt Nam',
+    'đna': 'Đông Nam Á',
+    'fb': 'facebook',
+    'kh': 'không',
+    'V.L': 'vãi lồn',
+    'iu': 'yêu',
+    'hqua': 'hôm qua',
+    'tr': 'trời',
+    'cíuuuuuuu': 'cứu',
+    'kh': 'không',
+    'e': 'em',
+    'a': 'anh',
+    'rựu': 'rượu',
+    'ng': 'người',
+    'Zạ': 'dạ',
+    'nma': 'nhưng mà',
+    'sốp': 'cửa hàng',
+    'shop': 'cửa hàng',
+    'bđs': 'bất động sản',
+    'tht': 'thiệt',
+    'mas': 'mà sao',
+    't': 'tao',
+    'z': 'vậy',
+    'đm': 'địt mẹ',
+    'ak': 'à',
+    'ezai': 'em giai',
+    'lol': 'lồn',
+    'post': 'bài viết',
+    'đell': 'đéo',
+    'dell': 'đéo',
+    'idc': 'đi được'
 }
 
 def load_stopwords(path="data/raw/vietnamese-stopwords-dash.txt"):

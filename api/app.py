@@ -94,11 +94,9 @@ def predict(req: CommentRequest):
     if prob >= 65:
         toxic = True
         source = "phobert"
-
     elif prob <= 35:
         toxic = False
         source = "phobert"
-
     else:
         if can_call_llm():
             toxic = llm_predict(req.comment, req.title, req.topic)
@@ -106,6 +104,8 @@ def predict(req: CommentRequest):
         else:
             toxic = True
             source = "failsafe"
+
+    print(f"Toxic: {toxic}, Source: {source}, Confidence: {prob}%, Title: {req.title}, Topic: {req.topic}, Comment: {req.comment[:30]}...")
 
     return {
         "toxic": toxic,
