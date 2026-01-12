@@ -1,7 +1,7 @@
 // require('dotenv').config();
 
 const TOXIC_CLASS = "toxic-blur";
-const API_KEY = "AIzaSyBwtaMKifElBqhBqmUlgZfliSLihqE2VWM";
+const API_KEY = API_KEY_YOU;
 
 (function injectCSS() {
   const link = document.createElement("link");
