@@ -2,3 +2,4 @@
 *.json
 weights/
 *.pt
+node_modules/
